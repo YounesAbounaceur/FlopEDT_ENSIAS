@@ -1,0 +1,14 @@
+#Ignorer tous les fichiers pyc
+*.pyc
+*~
+*.bak
+FlOpEDT/logs/*
+FlOpEDT/*.log
+*.sol
+*.mps
+.idea/
+.vscode/
+node_modules
+*.lp
+docker/env/secret.env
+

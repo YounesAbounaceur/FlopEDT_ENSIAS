@@ -1,0 +1,51 @@
+#+TITLE: Éléments d'aide au démarrage
+
+
+* Installation logicielle
+
+** Python
+La version python et les modules python nécessaires sont indiqués dans
+le fichier de [[../requirements.txt][requirements]].
+
+
+** Bases de données
+Nous proposons d'utiliser postgresql, qu'il faudra installer sur
+toutes les machines où seront hébergées une base.
+
+#+NAME: cmd
+#+BEGIN_SRC shell
+sudo apt-get install postgresql
+#+END_SRC
+
+* Paramétrage base de données et Django 
+
+La plupart des paramètres génériques nécessaires au fonctionnement de
+Django sont définis dans [[../FlOpEDT/FlOpEDT/settings/base.py][ce fichier]]. A priori, rien à modifier ici.
+
+Peuvent être utilisés les deux modes classiques :
+- développement, en local, qui utilise [[../FlOpEDT/FlOpEDT/settings/local.py][ce fichier]],
+- production, se basant sur [[../FlOpEDT/FlOpEDT/settings/production.py][celui-là]].
+
+Dans ces deux fichiers, sont à redéfinir :
+- la ~SECRET_KEY~ de Django,
+- les informations de la base de données.
+
+
+* À noter
+
+Deux scripts à ne pas oublier :
+- après avoir fourni tous les renseignements sur les groupes,
+  /i.e./ après la création des promotions ~TrainingProgramme~, de leur
+  assignation à des lignes dans l'affichage (via
+  ~TrainingProgrammeDisplay~) et des groupes ~Group~ qu'elles
+  contiennent, il est *nécessaire* d'appeler la fonction
+  ~generate_group_file~, qui se trouve [[../misc/generate_static_files.py][ici]], pour regrouper toutes les
+  informations.
+- après avoir créé tous les cours ~Course~ qui auront lieu pendant
+  l'année, il est *possible* d'assigner automatiquement une couleur à
+  chacun des modules en appelant la fonction ~assign_color~, définie
+  [[../FlOpEDT/misc/assign_module_color.py][ici]]. Autre possibilité : définir les ~ModuleDisplay~ un à un.
+
+
+* Description de l'architecture du projet
+wiki?

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if departments %}
+<div>
+    <div style="margin-top:40px; margin-left:auto; margin-right: auto; width:450px;">
+        Veuillez choisir votre département :
+        <ul>
+            {% for department in departments %}
+            <li><a href="{% url "base:edt" department.abbrev %}">{{ department.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% else %}
+    <p>No departments are available.</p>
+{% endif %}
+
+{% endblock %}

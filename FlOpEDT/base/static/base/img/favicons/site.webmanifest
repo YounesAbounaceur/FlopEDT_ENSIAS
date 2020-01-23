@@ -1,0 +1,20 @@
+{
+    "name": "FlOp EDT",
+    "short_name": "FlOp EDT",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png?v=5AeyQYqgW7",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png?v=5AeyQYqgW7",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#000000",
+    "background_color": "#000000",
+    "start_url": "http://edt-info.iut-blagnac.fr",
+    "display": "standalone"
+}

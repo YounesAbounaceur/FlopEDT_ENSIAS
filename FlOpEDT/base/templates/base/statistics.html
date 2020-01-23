@@ -1,0 +1,104 @@
+<!-- This file is part of the FlOpEDT/FlOpScheduler project.               -->
+<!-- Copyright (c) 2017                                                    -->
+<!-- Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.           -->
+<!--                                                                       -->
+<!-- This program is free software: you can redistribute it and/or modify  -->
+<!-- it under the terms of the GNU Affero General Public License as        -->
+<!-- published by the Free Software Foundation, either version 3 of the    -->
+<!-- License, or (at your option) any later version.                       -->
+<!--                                                                       -->
+<!-- This program is distributed in the hope that it will be useful, but   -->
+<!-- WITHOUT ANY WARRANTY; without even the implied warranty of            -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      -->
+<!-- Affero General Public License for more details.                       -->
+<!--                                                                       -->
+<!-- You should have received a copy of the GNU Affero General Public      -->
+<!-- License along with this program. If not, see                          -->
+<!-- <http://www.gnu.org/licenses/>.                                       -->
+<!--                                                                       -->
+<!-- You can be released from the requirements of the license by purchasing -->
+<!-- a commercial license. Buying such a license is mandatory as soon as   -->
+<!-- you develop activities involving the FlOpEDT/FlOpScheduler software   -->
+<!-- without disclosing the source code of your own applications.          -->
+
+{% extends "base.html" %}
+
+{% csrf_token %}
+
+{% block title %} Statistics {% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<style type="text/css">
+    #statistics{
+        margin: 20px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 600px;
+    }
+    #statistics select {
+        margin: 20px auto;
+    }
+
+    #statistics table {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 500px;
+    }
+
+    #statistics td,
+    #statistics th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #statistics tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #statistics tr:hover {
+        background-color: #ddd;
+    }
+
+    #statistics th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #878787;
+        color: white;
+    }
+</style>
+
+{% block script_variable %}
+
+<link rel="stylesheet" href="{% static 'base/better.css' %}?2" />
+<script src="{% static 'base/d3.v4.min.js' %}"></script>
+<script>
+    var statistics_urls = {
+        room_activity: "{% url "base:room_activity" department %}",
+        tutor_hours: "{% url "base:tutor_hours" department %}",
+    }
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+</script>
+
+{% endblock %}
+
+<div id="statistics">
+    <select id="select_statistic">
+        <option value="room_activity">Nombre de jours d'innocupation par salle</option>
+        <option value="tutor_hours">Nombre de cours donnés par professeur</option>
+    </select>
+
+    <table></table>
+</div>
+
+{% block script_file %}
+
+<script type='text/javascript' src="{% static 'base/statistics.js' %}"></script>
+
+{% endblock %}
+
+{% endblock %}

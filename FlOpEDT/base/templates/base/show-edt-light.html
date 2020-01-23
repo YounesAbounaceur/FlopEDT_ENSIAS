@@ -1,0 +1,46 @@
+<!-- This file is part of the FlOpEDT/FlOpScheduler project.               -->
+<!-- Copyright (c) 2017                                                    -->
+<!-- Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.           -->
+<!--                                                                       -->
+<!-- This program is free software: you can redistribute it and/or modify  -->
+<!-- it under the terms of the GNU Affero General Public License as        -->
+<!-- published by the Free Software Foundation, either version 3 of the    -->
+<!-- License, or (at your option) any later version.                       -->
+<!--                                                                       -->
+<!-- This program is distributed in the hope that it will be useful, but   -->
+<!-- WITHOUT ANY WARRANTY; without even the implied warranty of            -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      -->
+<!-- Affero General Public License for more details.                       -->
+<!--                                                                       -->
+<!-- You should have received a copy of the GNU Affero General Public      -->
+<!-- License along with this program. If not, see                          -->
+<!-- <http://www.gnu.org/licenses/>.                                       -->
+<!--                                                                       -->
+<!-- You can be released from the requirements of the license by purchasing -->
+<!-- a commercial license. Buying such a license is mandatory as soon as   -->
+<!-- you develop activities involving the FlOpEDT/FlOpScheduler software   -->
+<!-- without disclosing the source code of your own applications.          -->
+{% extends "base/edt-base.html" %}
+
+{% load static %}
+
+{% block script_variable %}
+<script>
+
+  var promo_init = "{{ promo }}";
+  var gp_init = "";  
+  var logged_usr = {};
+  var usna = "{{ user.username }}" ;
+
+  var tv_svg_h = "{{ tv_svg_h }}" ;
+  var tv_svg_w = "{{ tv_svg_w }}" ;
+  var tv_gp_h = "{{ tv_gp_h }}" ;
+  var tv_gp_w = "{{ tv_gp_w }}" ;
+  var tv_svg_top_m = "{{ tv_svg_top_m }}" ;
+  
+</script>
+{% endblock %}
+
+{% block script_file %}
+<script type='text/javascript' src="{% static "base/edt-only.js" %}"></script>
+{% endblock %}

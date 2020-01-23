@@ -1,0 +1,59 @@
+<!-- This file is part of the FlOpEDT/FlOpScheduler project.               -->
+<!-- Copyright (c) 2017                                                    -->
+<!-- Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.           -->
+<!--                                                                       -->
+<!-- This program is free software: you can redistribute it and/or modify  -->
+<!-- it under the terms of the GNU Affero General Public License as        -->
+<!-- published by the Free Software Foundation, either version 3 of the    -->
+<!-- License, or (at your option) any later version.                       -->
+<!--                                                                       -->
+<!-- This program is distributed in the hope that it will be useful, but   -->
+<!-- WITHOUT ANY WARRANTY; without even the implied warranty of            -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      -->
+<!-- Affero General Public License for more details.                       -->
+<!--                                                                       -->
+<!-- You should have received a copy of the GNU Affero General Public      -->
+<!-- License along with this program. If not, see                          -->
+<!-- <http://www.gnu.org/licenses/>.                                       -->
+<!--                                                                       -->
+<!-- You can be released from the requirements of the license by purchasing -->
+<!-- a commercial license. Buying such a license is mandatory as soon as   -->
+<!-- you develop activities involving the FlOpEDT/FlOpScheduler software   -->
+<!-- without disclosing the source code of your own applications.          -->
+
+{% extends "base.html" %}
+
+{% block title %} EDT {% endblock %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static "base/better.css" %}"/>
+
+<div id="tools-main" style="padding:10px;">
+
+    <h4>Abonnement iCal</h4>
+    <p>Copiez le lien correspondant au calendrier auquel vous souhaitez vous abonner pour l'ajouter dans votre gestionnaire d'agenda.</p>
+    
+    <h4>Groupes</h4>
+    <ul>
+		{% for g in groupes %}
+			<li><a href="groupe/{{ g.train_prog.abbrev }}/{{ g.nom }}.ics">{{ g.train_prog.abbrev }}/{{ g.nom }}</a></li>
+		{% endfor %}
+	</ul>
+    
+    <h4>Enseignants</h4>
+    <ul>
+		{% for e in enseignants %}
+			<li><a href="enseignant/{{ e.username }}.ics">{{ e.username }}</a></li>
+		{% endfor %}
+	</ul>
+	
+	<h4>Salles</h4>
+    <ul>
+		{% for s in salles %}
+			<li><a href="salle/{{ s.name }}.ics">{{ s.name }}</a></li>
+		{% endfor %}
+	</ul>
+
+</div>
+{% endblock %}

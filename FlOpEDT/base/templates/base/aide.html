@@ -1,0 +1,60 @@
+<!-- This file is part of the FlOpEDT/FlOpScheduler project.               -->
+<!-- Copyright (c) 2017                                                    -->
+<!-- Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.           -->
+<!--                                                                       -->
+<!-- This program is free software: you can redistribute it and/or modify  -->
+<!-- it under the terms of the GNU Affero General Public License as        -->
+<!-- published by the Free Software Foundation, either version 3 of the    -->
+<!-- License, or (at your option) any later version.                       -->
+<!--                                                                       -->
+<!-- This program is distributed in the hope that it will be useful, but   -->
+<!-- WITHOUT ANY WARRANTY; without even the implied warranty of            -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      -->
+<!-- Affero General Public License for more details.                       -->
+<!--                                                                       -->
+<!-- You should have received a copy of the GNU Affero General Public      -->
+<!-- License along with this program. If not, see                          -->
+<!-- <http://www.gnu.org/licenses/>.                                       -->
+<!--                                                                       -->
+<!-- You can be released from the requirements of the license by purchasing -->
+<!-- a commercial license. Buying such a license is mandatory as soon as   -->
+<!-- you develop activities involving the FlOpEDT/FlOpScheduler software   -->
+<!-- without disclosing the source code of your own applications.          -->
+
+{% extends "base.html" %}
+
+{% block title %} EDT {% endblock %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static "base/better.css" %}"/>
+
+<div id="tools-main" style="padding:10px;">
+
+    <h4>Modification de salle</h4>
+    <p>Click droit sur le cours en question. Ne pas oublier de valider tout changement.</p>
+    
+<!--     <h4>Création d'un compte</h4>
+    <p>Aller dans <a href="{% url "people:login" %}">Se connecter</a>, puis sélectionner le statut.</p> -->
+    
+    <h4>Modification d'un compte</h4>
+    <p>Cliquer sur son pseudo en haut de la page.</p>
+    
+    <h5>Modification de mot de passe</h5>
+    <p><a href="{% url 'people:password_change' %}">Ici</a>.</p>
+
+    <h4>Oubli de mot de passe</h4>
+    <p><a href="{% url 'people:password_reset' %}">Ici</a>, ou "Se connecter" en haut de page.</p>
+    
+    <h4>Fonctionnement de la saisie des disponibilités</h4>
+    <p>Au moment de la génération de l'emploi du temps d'une semaine donnée, si aucune disponibilité n'est renseignée pour cette semaine, la semaine type définit les disponibilités.</p>
+    
+    <h4>Quelques Tutos Vidéos </h4>
+    <table><tr>
+    <td><iframe width="560" height="315" src="https://www.youtube.com/embed/4uxITtWVkIs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
+    <td><iframe width="560" height="315" src="https://www.youtube.com/embed/XrAzkiHydnw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
+    <td><iframe width="560" height="315" src="https://www.youtube.com/embed/Yvyg2ad7kCA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
+    </tr></table>
+    
+</div>
+{% endblock %}

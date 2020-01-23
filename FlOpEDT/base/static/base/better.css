@@ -1,0 +1,142 @@
+/* This file is part of the FlOpEDT/FlOpScheduler project.                  */
+/* Copyright (c) 2017                                                       */
+/* Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.              */
+/*                                                                          */
+/* This program is free software: you can redistribute it and/or modify     */
+/* it under the terms of the GNU Affero General Public License as           */
+/* published by the Free Software Foundation, either version 3 of the       */
+/* License, or (at your option) any later version.                          */
+/*                                                                          */
+/* This program is distributed in the hope that it will be useful, but      */
+/* WITHOUT ANY WARRANTY; without even the implied warranty of               */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU         */
+/* Affero General Public License for more details.                          */
+/*                                                                          */
+/* You should have received a copy of the GNU Affero General Public         */
+/* License along with this program. If not, see                             */
+/* <http://www.gnu.org/licenses/>.                                          */
+/*                                                                          */
+/* You can be released from the requirements of the license by purchasing   */
+/* a commercial license. Buying such a license is mandatory as soon as      */
+/* you develop activities involving the FlOpEDT/FlOpScheduler software      */
+/* without disclosing the source code of your own applications.             */
+
+/* ************ grille EdT ************ */
+.gridm {
+  stroke: powderblue;
+  stroke-width: .5;
+  fill: aliceblue;
+}
+/* jours de la semaine */
+.gridsckd {
+  font-size:20px;
+  font-weight:bold;
+}
+/* groupes */
+.gridscg, .gridscp {
+  font-size:13px;
+  font-weight:bold;
+}
+/* creneau horaire */
+.gridsckh {
+  font-size:13px;
+  font-weight:normal;
+  text-anchor:start;
+}
+.cours text {
+  font-size:10px;
+}
+
+/* ************ Boutons ************ */
+#dd-sal, #dd-mod {
+background-color:forestgreen;
+color:white;
+}
+.tutor-button {
+  cursor: pointer;
+}
+rect.tutor-button-others {
+  stroke:black;
+  stroke-width:1px;
+  fill:forestgreen;
+}
+rect.tutor-button-me {
+  stroke:#134e13;
+  stroke-width:2px;
+  fill:#31c831;
+}
+text.tutor-button-others {
+  fill:white;
+}
+text.tutor-button-me {
+  fill:black;
+}
+
+g[class^="gp-but-"] {
+  cursor: pointer;
+}
+
+/* .dispo { */
+/*     cursor: pointer; */
+/* } */
+
+/* .cours { */
+/*     cursor: pointer; */
+/* } */
+
+.cir_wk {
+  fill: darkgreen;
+  cursor: pointer;
+  font-size: 2em;
+  font-weight: bold
+}
+
+.rec_wk {
+  fill: darkgreen;
+  cursor: pointer;
+  font-size: 1.5em;
+}
+
+.sel_wk {
+  fill: none;
+  stroke: darkkhaki;
+  stroke-width: 4
+}
+
+.menu {
+    fill: aliceblue;
+    stroke: none;
+}
+
+.ckstat {
+  fill: aliceblue
+}
+/* .ckdyna { */
+/*     cursor: pointer; */
+/* } */
+
+/* Messages */
+.ack-edt, .ack-reg {
+  font-size:20px;
+}
+.ack-reg {
+  text-anchor:end;
+}
+.quote {
+  text-anchor:start;
+}
+
+
+
+/* loadingspin.svg */
+
+/* ************ Logo ************ */
+/*@font-face {
+  font-family: 'MyWebFont';
+  src: url('webfont.eot'); // IE9 Compat Modes
+  src: url('webfont.eot?#iefix') format('embedded-opentype'), // IE6-IE8
+       url('webfont.woff2') format('woff2'), // Super Modern Browsers
+       url('webfont.woff') format('woff'), // Pretty Modern Browsers
+       url('webfont.ttf')  format('truetype'), // Safari, Android, iOS
+       url('webfont.svg#svgFontName') format('svg'); // Legacy iOS
+}*/

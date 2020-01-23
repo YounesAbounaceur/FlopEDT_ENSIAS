@@ -1,0 +1,79 @@
+<!-- This file is part of the FlOpEDT/FlOpScheduler project.               -->
+<!-- Copyright (c) 2017                                                    -->
+<!-- Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.           -->
+<!--                                                                       -->
+<!-- This program is free software: you can redistribute it and/or modify  -->
+<!-- it under the terms of the GNU Affero General Public License as        -->
+<!-- published by the Free Software Foundation, either version 3 of the    -->
+<!-- License, or (at your option) any later version.                       -->
+<!--                                                                       -->
+<!-- This program is distributed in the hope that it will be useful, but   -->
+<!-- WITHOUT ANY WARRANTY; without even the implied warranty of            -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      -->
+<!-- Affero General Public License for more details.                       -->
+<!--                                                                       -->
+<!-- You should have received a copy of the GNU Affero General Public      -->
+<!-- License along with this program. If not, see                          -->
+<!-- <http://www.gnu.org/licenses/>.                                       -->
+<!--                                                                       -->
+<!-- You can be released from the requirements of the license by purchasing -->
+<!-- a commercial license. Buying such a license is mandatory as soon as   -->
+<!-- you develop activities involving the FlOpEDT/FlOpScheduler software   -->
+<!-- without disclosing the source code of your own applications.          -->
+
+{% extends "base.html" %}
+
+{% csrf_token %}
+
+{% block title %} EDT {% endblock %}
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'base/better.css' %}?2" />
+<script src="{% static 'base/d3.v4.min.js' %}"></script>
+<script>
+    var groupes_fi = "{% url "base:fetch_groups" department %}";
+    var rooms_fi = "{% url "base:fetch_rooms" department %}";
+
+    var url_cours_pl = "{% url "base:fetch_cours_pl" department 0 0 0 %}";
+    url_cours_pl = url_cours_pl.slice(0, -5);
+    var url_cours_pp = "{% url "base:fetch_cours_pp" department 0 0 0 %}";
+    url_cours_pp = url_cours_pp.slice(0, -5);
+    var url_dispos = "{% url "base:fetch_dispos" department 0 0 %}";
+    url_dispos = url_dispos.slice(0, -3);
+    var url_unavailable_rooms = "{% url "base:fetch_unavailable_rooms" department 0 0 %}";
+    url_unavailable_rooms = url_unavailable_rooms.slice(0,-3);
+    var url_all_tutors = "{% url "base:fetch_all_tutors" department %}";
+    var url_login = "{% url "people:login" %}";
+    var url_edt = "{% url "base:edt" department %}";
+    var url_edt_changes = "{% url "base:edt_changes" department %}";
+    var url_dispos_changes = "{% url "base:dispos_changes" department %}";
+    var url_fetch_stype = "{% url "base:fetch_stype" department %}";
+    var url_bknews = "{% url "base:fetch_bknews" department 0 0 %}";
+    url_bknews = url_bknews.slice(0, -3);
+    var url_quote = "{% url "quote:fetch_quote" %}";
+    var url_week_infos = "{% url "base:fetch_week_infos" department 0 0 %}";
+    url_week_infos = url_week_infos.slice(0, -3);
+
+    var semaine_an_list = {{ all_weeks| safe }};
+    var jours_list = {{ jours| safe }};
+    var semaine_init = +"{{ semaine }}";
+    var an_init = +"{{ an }}";
+    var une_salle = "{{ une_salle }}";
+
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+</script>
+
+{% block script_variable %}{% endblock %}
+
+<script type='text/javascript' src="{% static 'base/variables.js' %}?2"></script>
+<script type='text/javascript' src="{% static 'base/week_change.js' %}"></script>
+<script type='text/javascript' src="{% static 'base/transformation.js' %}"></script>
+<script type='text/javascript' src="{% static 'base/creation.js' %}"></script>
+<script type='text/javascript' src="{% static 'base/action.js' %}"></script>
+<script type='text/javascript' src="{% static 'base/update.js' %}"></script>
+
+{% block script_file %}{% endblock %}
+
+{% endblock %}

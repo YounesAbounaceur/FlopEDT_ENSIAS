@@ -1,0 +1,107 @@
+<!-- This file is part of the FlOpEDT/FlOpScheduler project.               -->
+<!-- Copyright (c) 2017                                                    -->
+<!-- Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.           -->
+<!--                                                                       -->
+<!-- This program is free software: you can redistribute it and/or modify  -->
+<!-- it under the terms of the GNU Affero General Public License as        -->
+<!-- published by the Free Software Foundation, either version 3 of the    -->
+<!-- License, or (at your option) any later version.                       -->
+<!--                                                                       -->
+<!-- This program is distributed in the hope that it will be useful, but   -->
+<!-- WITHOUT ANY WARRANTY; without even the implied warranty of            -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      -->
+<!-- Affero General Public License for more details.                       -->
+<!--                                                                       -->
+<!-- You should have received a copy of the GNU Affero General Public      -->
+<!-- License along with this program. If not, see                          -->
+<!-- <http://www.gnu.org/licenses/>.                                       -->
+<!--                                                                       -->
+<!-- You can be released from the requirements of the license by purchasing -->
+<!-- a commercial license. Buying such a license is mandatory as soon as   -->
+<!-- you develop activities involving the FlOpEDT/FlOpScheduler software   -->
+<!-- without disclosing the source code of your own applications.          -->
+
+{% extends "base.html" %}
+{% load static %}
+
+{% csrf_token %}
+
+
+{% block title %} Génération {% endblock %}
+{% block content %}
+  <link rel="stylesheet" href="{% static "base/header.css" %}"/>
+  <link rel="stylesheet" href="{% static "solve_board/solve.css" %}"/>
+  <script src="{% static "base/d3.v4.min.js" %}"></script>
+  <script>
+    var text_all = '{{ text_all|safe }}';
+    var week_list = {{ weeks|safe }};
+    var train_prog_list = {{ train_progs|safe }};
+    var department = '{{ department }}';
+    var fetch_context_url_template = '{% url "solve_board:fetch_context" department 'tp' 1111 11 %}';
+    var constraints = JSON.parse('{{ constraints|escapejs }}');
+    var work_copies = JSON.parse('{{ work_copies|escapejs }}');
+  </script>
+
+  <template id="constraints_template">
+    <div class="constraint">
+      <input type="checkbox" />
+      <label class="title"></label>
+      <div id="explanation" class="explanation"></div>
+      <div id="description" class="description hiddable"></div>
+      <div id="comment" class="comment hiddable"></div>
+      <div id="details" class="details hiddable"></div>
+    </div>
+  </template>
+
+  <div class="solver">
+    <div id="constraints">
+        <div class="header"><span>Contraintes</span></div>
+        <div class="remarks">(*) Les contraintes apparaissant en gras - avec un poids non défini - seront prises en compte de manière obligatoire, les autres seront utilisées dans la résolution comme des préférences.</div>
+        <div id="constraints_list"></div>
+    </div>   
+    <div id="settings" class="settings">
+      <div class="header">
+        <span>Configuration</span>
+        <input type="button" id="launch" name="action" value="Go"/>
+      </div>
+      <div>
+          <label for="opti_date">Semaine : </label> 
+        <select id="opti_date"></select>
+      </div>
+      <div>
+        <label for="opti_train_prog">Promotion : </label>
+        <select id="opti_train_prog"></select>
+      </div>
+      <div id="stabilize">
+        <label for="stabilize_selector">Stabilisation : </label>
+        <select id="stabilize_selector"></select>
+      </div>
+      <div>
+        {% if solvers|length > 1 %}  
+          <label for="solver">Solveur :</label>
+          <select id="solver">
+            {% for key, name in solvers %}
+              <option value="{{ key }}">{{ name }}</option>
+            {% endfor %}
+          </select>
+        {% else  %}
+          <input type="hidden" id="solver" value="{{ solvers.0.0 }}"/>
+        {% endif %}
+      </div>
+      <div>
+        <label for="limit">Durée de résolution maximale (minutes):</label>
+        <select id="limit">
+          <option value="300" selected>5</option>
+          <option value="600">10</option>
+          <option value="1800">30</option>
+          <option value="3600">60</option>
+          <option value="0">Illimité</option>
+        </select>
+      </div>
+    </div>
+    <textarea class="console"></textarea>
+  </div>
+  
+  <script type='text/javascript' src="{% static "solve_board/solve.js" %}"></script>
+  
+{% endblock %}

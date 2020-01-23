@@ -1,0 +1,99 @@
+<!-- This file is part of the FlOpEDT/FlOpScheduler project.               -->
+<!-- Copyright (c) 2017                                                    -->
+<!-- Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.           -->
+<!--                                                                       -->
+<!-- This program is free software: you can redistribute it and/or modify  -->
+<!-- it under the terms of the GNU Affero General Public License as        -->
+<!-- published by the Free Software Foundation, either version 3 of the    -->
+<!-- License, or (at your option) any later version.                       -->
+<!--                                                                       -->
+<!-- This program is distributed in the hope that it will be useful, but   -->
+<!-- WITHOUT ANY WARRANTY; without even the implied warranty of            -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      -->
+<!-- Affero General Public License for more details.                       -->
+<!--                                                                       -->
+<!-- You should have received a copy of the GNU Affero General Public      -->
+<!-- License along with this program. If not, see                          -->
+<!-- <http://www.gnu.org/licenses/>.                                       -->
+<!--                                                                       -->
+<!-- You can be released from the requirements of the license by purchasing -->
+<!-- a commercial license. Buying such a license is mandatory as soon as   -->
+<!-- you develop activities involving the FlOpEDT/FlOpScheduler software   -->
+<!-- without disclosing the source code of your own applications.          -->
+
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static "base/better.css" %}"/>
+<script>
+  var url_add = "{% url 'people:add_redirect' '' %}" ;
+</script>
+  
+  
+<div id="tools-main" style="padding:10px;">
+
+  <div style="float: left; width:400px">    
+    <fieldset style="width:300px">
+      <legend>Authentification</legend>
+      <form method="post" action="{% url 'people:login' %}" name="login">
+	{% csrf_token %}
+	<table>
+	  <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+	  </tr>
+	  <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+	  </tr>
+	</table>
+	
+	<span><a href="{% url 'people:password_reset' %}">Mot de passe perdu ?</a></span>
+	<input style="float:right" type="submit" value="Se connecter"/>
+	<input type="hidden" name="next" value="{{ next }}"/>
+      </form>
+    </fieldset>
+  </div>
+  <div style="float: left; width:300px">
+    {% if form.errors %}
+    <p>Pas de correspondance entre le pseudo et le mot de passe. Réessayer.</p>
+    {% endif %}
+    
+    {% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% endif %}
+    {% endif %}
+    <p></p>
+  </div>
+<!--  <br style="clear: both" />-->
+  
+  <fieldset style="width:300px">
+    <legend>Nouveau compte</legend>
+    Je suis
+    <form name="add">
+      <input type="radio" id="stud" name="create" checked="checked">Étudiant&middot;e</input><br/>
+      <input type="radio" id="full" name="create">Enseignant&middot;e permanent&middot;e</input><br/>
+      <input type="radio" id="supp" name="create">Vacataire</input><br/>
+      <input type="radio" id="BIAT" name="create">BIATOS</input><br/>
+      <input style="float:right" type="button" value="Créer" onClick="create_user()"/>
+    </form>
+    <!--<p><a href="{ % url 'add_user' % }">Créer un nouveau compte</a></p>-->
+  </fieldset>
+
+  <script>
+    function create_user() {
+	var iam = document.forms['add'];
+	var i = 0;
+	while (!iam[i].checked) {
+	    i++ ;
+	}
+	var url_go_add = url_add + iam[i].id ;
+	console.log(url_go_add);
+	window.location.href = url_go_add ;
+    }
+  </script>
+  
+{% endblock %}

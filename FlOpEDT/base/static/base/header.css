@@ -1,0 +1,256 @@
+/* This file is part of the FlOpEDT/FlOpScheduler project.                  */
+/* Copyright (c) 2017                                                       */
+/* Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.              */
+/*                                                                          */
+/* This program is free software: you can redistribute it and/or modify     */
+/* it under the terms of the GNU Affero General Public License as           */
+/* published by the Free Software Foundation, either version 3 of the       */
+/* License, or (at your option) any later version.                          */
+/*                                                                          */
+/* This program is distributed in the hope that it will be useful, but      */
+/* WITHOUT ANY WARRANTY; without even the implied warranty of               */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU         */
+/* Affero General Public License for more details.                          */
+/*                                                                          */
+/* You should have received a copy of the GNU Affero General Public         */
+/* License along with this program. If not, see                             */
+/* <http://www.gnu.org/licenses/>.                                          */
+/*                                                                          */
+/* You can be released from the requirements of the license by purchasing   */
+/* a commercial license. Buying such a license is mandatory as soon as      */
+/* you develop activities involving the FlOpEDT/FlOpScheduler software      */
+/* without disclosing the source code of your own applications.             */
+
+/* ************ page ************ */
+* {
+  font-family: Arial, sans-serif;
+  font-size:12px;
+  alignment-baseline:middle;
+  dominant-baseline:middle;
+}
+
+@font-face {
+  font-family: 'flog';
+  src: url('/static/base/fonts/FFF_Tusj.ttf')  format("truetype"),
+       local('flog');
+}
+
+h1 {
+  font-size:22px;
+}
+h2 {
+  font-size:20px;
+}
+h3 {
+  font-size:18px;
+}
+h4 {
+  font-size:16px;
+}
+body{
+    background: linear-gradient(to bottom, rgb(176,176,176), rgb(255,255,255));
+}
+#edt-main{
+  text-anchor:middle;
+}
+
+.hide_this_link {
+    color: inherit;
+    text-decoration: none;
+}
+
+#tools-main{
+  padding-top:10px;
+}
+
+#logo_txt {
+    height: 120px;
+    float:left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+#logo_name {
+    order: 1;
+}
+#logo_slog {
+    order: 2;
+}
+
+footer { 
+/*
+    height:120px;
+    margin:0px;
+    padding:0px;
+*/
+}
+
+
+.higs, .slo, .higc, .higb {
+  padding:0px;/*5px;*/
+  font-weight: bold;
+}
+.def, .higb {
+    font-size:76px;
+    font-family: 'flog';
+}
+.def, .slo {
+    color: black;
+}
+.slo, .higs, .higc {
+    font-size:15px;
+    font-weight:bold;
+    font-family:Molengo;
+}
+.higs, .higb, .higc {
+    color: red;
+}
+.higc {
+    text-decoration: line-through;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+/*    width: 60px;
+    height: 28px;*/
+    padding: 5px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+
+#menu-edt{
+  color: white;
+  font-size:14px;
+  font-weight:bold;
+}
+#menu-edt ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+#menu-edt li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+#menu-edt li a {
+  color: white;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+#menu-edt li div {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+
+html, 
+body {
+    min-height: 100%;
+}
+
+/* FlOp Logo */
+
+#image {
+	display: flex; 
+	flex-direction: row; 
+	flex-wrap: nowrap;
+	margin-left: 5ch;
+	margin-right: 1200px;
+}
+
+#live-logo {
+	width: 125px; 
+	height: 125px;
+	margin-right: 3px;
+}
+
+#full_logo {
+	padding-top: 0px;
+	font-family: 'flog';
+	display: flex; 
+	flex-direction: row;
+	color:black
+}
+
+#texteSous {
+	font-family: inherit;
+	display: flex; 
+	flex-direction: row; 
+	align-items: baseline;
+}
+
+#acro_logo {
+	font-size: 70px;
+	font-family: inherit;
+	font-weight:normal;
+}
+
+#head_logo {
+	
+	font-size: 16px;
+	font-family: 'Verdana';
+	font-weight: bold;
+	opacity: .7;
+	margin-top: 45px;
+	margin-left: 10px;
+}
+
+#agpl {
+	font-size: 10px;
+	margin-left: auto;
+	margin-top: 40px;
+	margin-right: 10px;
+	font-weight: 600;
+}
+
+#opRed {
+	color: red;
+	font-family: inherit;
+	font-size: inherit;
+}
+
+#flopRed {
+	color: red;
+	font-size: 18px;
+	font-family: inherit;
+	font-weight: inherit;
+}
+
+#flopPasRed {
+	font-size: 18px;
+	font-family: inherit;
+	font-weight: inherit;
+	opacity: 1;
+}
+
+#flopRedDel {
+	color: red;
+	font-size: inherit;
+	font-family: inherit;
+	text-decoration: line-through;
+}
+
+/* ************ Loader ************ */
+.loader {
+position : fixed;
+z-index: 9999;
+background : rgba(0,0,0,0.6) url('logo-head-gribou-rc-hand.svg') no-repeat 50% 50%;
+/*background-size:30% 30%;*/
+top : 0px;
+left : 0px;
+height : 100%;
+width : 100%;
+cursor : wait;
+}
