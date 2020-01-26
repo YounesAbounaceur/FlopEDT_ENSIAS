@@ -34,7 +34,7 @@ from random import choice
 
 from base.models import Room, RoomType, RoomGroup, TrainingProgramme, TrainingProgrammeDisplay,\
     Group, Module, GroupType, Period, Time, Day, Slot, CourseType, EdtVersion, UserPreference,\
-    CoursePreference, Department
+    CoursePreference, Department, Course
 
 from base.weeks import annee_courante
 
@@ -54,6 +54,7 @@ logger = logging.getLogger('base')
 def extract_database_file(bookname=bookname, department_name=None, department_abbrev=None):
 
     # Test department existence
+    #department = Department.objects.all()[0]
     department, created = Department.objects.get_or_create(name=department_name, abbrev=department_abbrev)
     if not created:
         print(f"Department with abbrev {department_abbrev} already exists.")
@@ -66,6 +67,9 @@ def extract_database_file(bookname=bookname, department_name=None, department_ab
     modules_extract(department, book)
     slots_extract(department, book)
     courses_extract(department, book)
+    coursesPreferences_add(department)
+    courses_add(department)
+    userPreferences_add()
 
 
 def tutors_extract(department, book):
@@ -103,6 +107,7 @@ def tutors_extract(department, book):
                 tutor.set_password("passe")
                 tutor.is_tutor = True
                 tutor.save()
+                tutor.departments.add(department)
 
 
             except IntegrityError as ie :
@@ -110,8 +115,7 @@ def tutors_extract(department, book):
                 pass
             else:
                 logger.debug(f'create tutor with id:{id}')
-        else:
-            tutor.departments.add(department)
+            
 
         INTER_ID_ROW += 1
         id = sheet.cell(row=INTER_ID_ROW, column=1).value
@@ -255,7 +259,7 @@ def rooms_extract(department, book):
 
                 room_group.types.add(room_type)
             except RoomGroup.DoesNotExist:
-                print(f"unable to find  RoomGroup '{idroom_group_idGroup}'")
+                print(f"unable to find  RoomGroup '{room_group_id}'")
 
             col += 1
             room_group_id = sheet.cell(row=row, column=col).value
@@ -489,9 +493,9 @@ def modules_extract(department, book):
 
 def slots_extract(department, book):
 
-    sheet = book["Creneaux"]
-
-    answer = sheet.cell(row=3, column=12).value
+    #sheet = book["Cours"]
+    answer = "Oui"
+    #answer = sheet.cell(row=3, column=12).value
     for d in Day.CHOICES[:5]:
         day, created = Day.objects.get_or_create(day=d[0])
     if created:
@@ -511,29 +515,29 @@ def slots_extract(department, book):
         assign_day_time_numbers()
         return None
 
-    CRENEAU_ROW=3
+    CRENEAU_ROW=2
 
     dura = sheet.cell(row=CRENEAU_ROW, column=1).value
 
     while dura is not None:
 
-        TIME_COL = 3
+        TIME_COL = 8
 
-        day = sheet.cell(row=CRENEAU_ROW, column=2).value
+        #day = sheet.cell(row=CRENEAU_ROW, column=2).value
         hour = sheet.cell(row=CRENEAU_ROW, column=TIME_COL).value
 
         if day == "Tous les jours":
             days = [d[0] for d in Day.CHOICES[:5]]
-        elif day == "Lundi":
-            days = [Day.MONDAY]
-        elif day == "Mardi":
-            days = [Day.TUESDAY]
-        elif day == "Mercredi":
-            days = [Day.WEDNESDAY]
-        elif day == "Jeudi":
-            days = [Day.THURSDAY]
-        elif day == "Vendredi":
-            days = [Day.FRIDAY]
+        #elif day == "Lundi":
+        #    days = [Day.MONDAY]
+        #elif day == "Mardi":
+        #    days = [Day.TUESDAY]
+        #elif day == "Mercredi":
+        #    days = [Day.WEDNESDAY]
+        #elif day == "Jeudi":
+        #    days = [Day.THURSDAY]
+        #elif day == "Vendredi":
+        #    days = [Day.FRIDAY]
 
 
         while hour is not None:
@@ -584,13 +588,12 @@ def courses_extract(department, book):
 
     sheet = book['Cours']
 
-    TYPE_ROW = 3
+    TYPE_ROW = 2
 
     idType = sheet.cell(row=TYPE_ROW, column=1).value
 
     while idType is not None:
-
-        TYPE_COL = 2
+        TYPE_COL = 3
 
         verif = CourseType.objects.filter(name=idType, department=department)
 
@@ -609,7 +612,7 @@ def courses_extract(department, book):
             idGroup = sheet.cell(row=TYPE_ROW, column=TYPE_COL).value
 
             while idGroup is not None:
-
+                print('Id :  {} '.format(idGroup))
                 group = GroupType.objects.get(name=idGroup, department=department)
                 course.group_types.add(group)
                 course.save()
@@ -622,7 +625,58 @@ def courses_extract(department, book):
 
     print("Courses' types extraction done")
 
+def userPreferences_add():
+    for p in Tutor.objects.all():
+        for s in Slot.objects.all():
+            params = {'user' : p, 'creneau' : s}
+            uP = UserPreference(**params)
+            uP.save()
+            #UserPreference.objects.create(
+            #    user = p,
+            #    creneau = s)
+    print("user Preferences done")
 
+def coursesPreferences_add(department):
+    for ct in CourseType.objects.filter(department=department):
+        for tp in TrainingProgramme.objects.all():
+             for s in Slot.objects.all():
+                CoursePreference.objects.get_or_create(
+                    course_type = ct,
+                    train_prog =  tp,
+                    creneau = s,
+                    valeur = 8)
+    print("courses Preferences done")
+
+
+def courses_add(department):
+    for ct in CourseType.objects.filter(department=department):
+        for gt in ct.group_types.all():
+            for g in Group.objects.filter(type = gt):
+                for p in Tutor.objects.all():
+                    for m in Module.objects.filter(head=p):
+                        start = m.period.starting_week
+                        end = m.period.ending_week
+                        min_v = 0
+                        max_v = 53
+                        if start <= end:
+                            for s in range(start,end+1):
+                               course_create(ct, p, g, m, s,2018)
+                        else :
+                            for s in range(start,max_v+1):
+                                course_create(ct, p, g, m, s,2018)
+                            for s in range(min_v,end+1):
+                                course_create(ct, p, g, m, s,2018)
+    print('courses adding done')
+
+def course_create(ct, p, g, m, s,a):
+    Course.objects.create(
+                        type = ct,
+                        tutor = p,
+                        groupe = g,
+                        module = m,
+                        semaine = s,
+                        an = a
+                    )
 
 def displayInfo():
 

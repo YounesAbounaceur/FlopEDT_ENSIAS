@@ -37,25 +37,21 @@ songez à une exécution en `sudo`.)
 
 L'application sera accessible à l'adresse http://localhost:8000.
 
-Vous pouvez importer le fichier [dump.json](./dump.json) (qui est une
-base pour jouer avec l'interface) avec la commande :
+Vous pouvez importer la base de donnée de la façon suivante :
 
-`make init` 
+docker exec -it $(docker ps | grep dev_web_1 | awk '{ print $1 }') bash
+FlOpEDT/manage.py shell --settings=FlOpEDT.settings.development
 
-Vous pourrez alors vous connecter avec l'utilisateur `MOI` et le mot
-de passe `passe`. Cet utilisateur possède les droits associés aux
+from misc.deploy_database.deploy_database import extract_database_file 
+extract_database_file('database_file.xlsx','GenieLogiciel','GL')
+ 
+
+Vous pourrez alors vous connecter avec l'utilisateur `root` et le mot
+de passe `root`. Cet utilisateur possède les droits associés aux
 responsables des emplois du temps. Pour la vision d'une personne
 enseignante classique, utiliser l'un des autres login (En fait, tous
 les utilisateurs ont le même mot de passe `passe` !).
 
-Les paramètres de la configuration courante se trouvent dans
-`FlOpEDT/settings`. Par défaut, on utilise la configuration
-`development`. On peut spécifier une autre configuration en modifiant
-la variable d'environnement `CONFIG` comme suit :
-
-`CONFIG=production make [build|init|start|stop]`
-
-Dans cet exemple de configuration pour un environnement de production, il est nécessaire de définir la variable `SECRET_KEY=your_very_secret_key` dans le fichier `/docker/env/secret.env`.
 
 
 ## Contributions
