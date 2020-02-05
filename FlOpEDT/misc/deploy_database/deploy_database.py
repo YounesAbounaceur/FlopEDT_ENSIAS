@@ -34,7 +34,7 @@ from random import choice
 
 from base.models import Room, RoomType, RoomGroup, TrainingProgramme, TrainingProgrammeDisplay,\
     Group, Module, GroupType, Period, Time, Day, Slot, CourseType, EdtVersion, UserPreference,\
-    CoursePreference, Department, Course
+    CoursePreference, Department, Course, ModuleDisplay
 
 from base.weeks import annee_courante
 
@@ -45,6 +45,8 @@ from misc.generate_static_files import generate_group_file
 from people.models import FullStaff, SupplyStaff, Tutor
 
 from django.db import IntegrityError
+
+import datetime
 
 
 bookname='misc/deploy_database/database_file.xlsx'
@@ -480,7 +482,8 @@ def modules_extract(department, book):
 
                 module = Module(nom=nameMod, abbrev=idMod, ppn=codeMod, train_prog=tpModule, head=profesMod, period=periodMod)
                 module.save()
-
+                moduleD  = ModuleDisplay(module = module)
+                moduleD.save()
             except IntegrityError as ie:
                 print("A constraint has not been respected creating the Module %s : \n" % idMod, ie)
                 pass
@@ -503,13 +506,13 @@ def slots_extract(department, book):
 
     if answer == "Oui":
         print("'normal' slots imported")
-        default_times=[(8,0),(9,30),(11,0),(14,15),(15,45),(17,15)]
+        default_times=[(8,30),(10,40),(14,0),(16,10)]
         for hours,minutes in default_times:
             time, created = Time.objects.get_or_create(hours=hours, minutes=minutes)
             if created:
                 time.save()
             for day in Day.objects.all():
-                slot, created = Slot.objects.get_or_create(duration=90, jour=day, heure=time)
+                slot, created = Slot.objects.get_or_create(duration=110, jour=day, heure=time)
                 if created:
                     slot.save()
         assign_day_time_numbers()
@@ -658,25 +661,39 @@ def courses_add(department):
                         end = m.period.ending_week
                         min_v = 0
                         max_v = 53
+                        if  ct.name == "CE":
+                            rt = RoomType.objects.filter(name = 'CE')[0]
+                        else:
+                            rt  = RoomType.objects.filter(name = 'TD/TP')[0]
                         if start <= end:
                             for s in range(start,end+1):
-                               course_create(ct, p, g, m, s,2018)
+                               course_create(ct, rt, p, g, m, s)
                         else :
                             for s in range(start,max_v+1):
-                                course_create(ct, p, g, m, s,2018)
+                                course_create(ct, rt, p, g, m, s)
                             for s in range(min_v,end+1):
-                                course_create(ct, p, g, m, s,2018)
+                                course_create(ct, rt, p, g, m, s)
     print('courses adding done')
 
-def course_create(ct, p, g, m, s,a):
+def course_create(ct,rt, p, g, m, s):
     Course.objects.create(
                         type = ct,
+                        room_type = rt,
                         tutor = p,
                         groupe = g,
                         module = m,
                         semaine = s,
-                        an = a
+                        an = get_school_year(s)
                     )
+
+def get_school_year(s):
+        now = datetime.datetime.now()
+        # TODO find a alternative way to test the swap month
+        if s >= 30:
+            school_year = now.year - 1
+        else:
+            school_year = now.year
+        return school_year
 
 def displayInfo():
 
