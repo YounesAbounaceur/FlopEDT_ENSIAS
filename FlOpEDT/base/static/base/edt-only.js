@@ -76,7 +76,7 @@ function on_group_rcv_light(dg) {
 
     create_edt_grid();
 
-    create_bknews();
+    //create_bknews();
     
 
     fetch_cours_light();

@@ -613,9 +613,17 @@ function apply_ckbox(dk) {
     if (ckbox[dk].en && fetch.done) {
 
         if (ckbox[dk].cked) {
-            ckbox[dk].cked = false;
+            if(dk == "edt-mod") {
+                if(var_is_superuser=="True")
+                    ckbox[dk].cked = false;
+            }else
+                ckbox[dk].cked = false;
         } else {
-            ckbox[dk].cked = true;
+            if(dk == "edt-mod") {
+                if(var_is_superuser=="True")
+                    ckbox[dk].cked = true;
+            }else
+                ckbox[dk].cked = true;
         }
 
         if (dk == "dis-mod") {

@@ -55,7 +55,8 @@
     var url_quote = "{% url "quote:fetch_quote" %}";
     var url_week_infos = "{% url "base:fetch_week_infos" department 0 0 %}";
     url_week_infos = url_week_infos.slice(0, -3);
-
+    
+    var var_is_superuser =  "{{user.is_superuser}}";
     var semaine_an_list = {{ all_weeks| safe }};
     var jours_list = {{ jours| safe }};
     var semaine_init = +"{{ semaine }}";
@@ -63,6 +64,7 @@
     var une_salle = "{{ une_salle }}";
 
     var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    
 </script>
 
 {% block script_variable %}{% endblock %}

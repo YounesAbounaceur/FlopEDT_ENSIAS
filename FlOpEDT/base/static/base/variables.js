@@ -65,14 +65,14 @@ var dim_dispo = {height:2*labgp.height, width: 60, right: 10, plot:0,
 var nbPer = 5;
 
 // number of slots within 1 day
-var nbSl = 6;
+var nbSl = 4;//6
 
 // initial number of promos
-var init_nbRows = 2;
+var init_nbRows = 1;
 
 // current number of rows
 var nbRows;
-// last positive number of rows
+// last positivenbRows number of rows
 var pos_nbRows = 0;
 
 // maximum number of lab groups among promos
@@ -214,8 +214,8 @@ var data_grid_scale_gp = [];
 // keys to the left representing the name of the row
 //(one element per row and per hour)
 var data_grid_scale_row = [];
-var data_grid_scale_hour = ["8h-9h25", "9h30-10h55", "11h05-12h30", "14h15-15h40", "15h45-17h10", "17h15-18h40"];
-
+var data_grid_scale_hour = ["8h30-10h20", "10h40-12h30", "14h05-15h50", "16h10-18h"];
+//["8h-9h25", "9h30-10h55", "11h05-12h30", "14h15-15h40", "15h45-17h10", "17h15-18h40"];
 // Names of the days
 var data_grid_scale_day_init = ["Lun.", "Mar.", "Mer.", "Jeu.", "Ven."];
 var data_grid_scale_day = ["Lun.", "Mar.", "Mer.", "Jeu.", "Ven."];
@@ -304,6 +304,7 @@ var menus = {
 var edt_but, edt_message;
 // parameters for each checkbox
 var ckbox = [];
+
 ckbox["edt-mod"] = {
     i: 0,
     menu: "edt-mod",

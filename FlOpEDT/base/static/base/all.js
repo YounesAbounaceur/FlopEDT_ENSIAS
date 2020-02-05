@@ -112,7 +112,7 @@ function on_group_rcv(dg) {
     
     go_ack_msg();
 
-    create_bknews();
+    //create_bknews();
 
     go_promo_gp_init() ;
     go_gp_buttons();
