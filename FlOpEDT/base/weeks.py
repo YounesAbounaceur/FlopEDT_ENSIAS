@@ -26,7 +26,17 @@
 
 import datetime
 
-annee_courante = 2018
+
+def get_current_schoolyear():
+        now = datetime.datetime.now()
+        # TODO find a alternative way to test the swap month
+        if now.month <= 7:
+            school_year = now.year - 1
+        else:
+            school_year = now.year
+        return school_year
+
+annee_courante = get_current_schoolyear()
 
 
 # monday of Week #2
@@ -78,8 +88,8 @@ def week_list():
             li.append({'semaine': i, 'an': 2019})
         return li
     else:
-        for i in list(range(36, 44)) + list(range(45, 52)):
+        for i in list(range(36, 53)):
             li.append({'semaine': i, 'an': annee_courante})
-        for i in list(range(2, 10)) + list(range(11, 17)) + list(range(19, 31)):
+        for i in list(range(1, 30)):
             li.append({'semaine': i, 'an': annee_courante+1})
         return li
