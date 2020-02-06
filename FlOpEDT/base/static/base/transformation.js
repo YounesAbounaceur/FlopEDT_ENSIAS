@@ -1,21 +1,21 @@
 // This file is part of the FlOpEDT/FlOpScheduler project.
 // Copyright (c) 2017
 // Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.
-// 
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Affero General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Affero General Public
 // License along with this program. If not, see
 // <http://www.gnu.org/licenses/>.
-// 
+//
 // You can be released from the requirements of the license by purchasing
 // a commercial license. Buying such a license is mandatory as soon as
 // you develop activities involving the FlOpEDT/FlOpScheduler software
@@ -25,19 +25,19 @@
 
 
            /*     \
-          ----------           
-        --------------         
-      ------------------       
-    ----------------------     
-  --------------------------   
------------------------------- 
+          ----------
+        --------------
+      ------------------
+    ----------------------
+  --------------------------
+------------------------------
 ------- TRANSFORMATIONS ------
------------------------------- 
-  --------------------------   
-    ----------------------     
-      ------------------       
-        --------------         
-          ----------           
+------------------------------
+  --------------------------
+    ----------------------
+      ------------------
+        --------------
+          ----------
            \     */
 
 
@@ -245,7 +245,7 @@ function txt_filDispos() {
             ret += "Vous en proposez " + filled_dispos + ". C'est parfait.";
         }
     } else if (required_dispos == 0) {
-        //ret += "Pas de problème." // pas de cours => pas de message ;-) 
+        //ret += "Pas de problème." // pas de cours => pas de message ;-)
     }
     return ret;
 }
@@ -587,7 +587,7 @@ function butgp_txt(gp) {
 }
 
 function fill_gp_button(gp) {
-    return (is_no_hidden_grp ? "#999999" : (gp.display ? "forestgreen" : "firebrick"));
+    return (is_no_hidden_grp ? "#ffa500" : (gp.display ? "forestgreen" : "firebrick"));
 }
 
 /*--------------------
@@ -800,7 +800,7 @@ function cm_chg_but_height() {
 
 function cm_chg_but_x(d, i) {
     var c = i % room_tutor_change.cm_settings.ncol ;
-    var ret = cm_chg_bg_x() + room_tutor_change.cm_settings.mx 
+    var ret = cm_chg_bg_x() + room_tutor_change.cm_settings.mx
 	+ ( room_tutor_change.cm_settings.mx + cm_chg_but_width(d, i) ) * c ;
     return ret ;
 }
@@ -821,7 +821,7 @@ function cm_chg_but_txt(d,i) {
 }
 function cm_chg_but_stk(d) {
     if (d.content == room_tutor_change.cur_value) {
-	return 3 ; 
+	return 3 ;
     } else {
 	return 0 ;
     }

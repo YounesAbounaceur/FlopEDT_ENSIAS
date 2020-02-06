@@ -49,7 +49,7 @@
 
 /* ************ Boutons ************ */
 #dd-sal, #dd-mod {
-background-color:forestgreen;
+background-color:#f3852b;
 color:white;
 }
 .tutor-button {
@@ -58,15 +58,15 @@ color:white;
 rect.tutor-button-others {
   stroke:black;
   stroke-width:1px;
-  fill:forestgreen;
+  fill:#f3852b;
 }
 rect.tutor-button-me {
-  stroke:#134e13;
+  stroke:#ffa500;
   stroke-width:2px;
-  fill:#31c831;
+  fill:#ffa500;
 }
 text.tutor-button-others {
-  fill:white;
+  fill:black;
 }
 text.tutor-button-me {
   fill:black;
@@ -85,14 +85,14 @@ g[class^="gp-but-"] {
 /* } */
 
 .cir_wk {
-  fill: darkgreen;
+  fill: #f3852b;
   cursor: pointer;
   font-size: 2em;
   font-weight: bold
 }
 
 .rec_wk {
-  fill: darkgreen;
+  fill: #f38a60;
   cursor: pointer;
   font-size: 1.5em;
 }

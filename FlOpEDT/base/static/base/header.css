@@ -48,7 +48,7 @@ h4 {
   font-size:16px;
 }
 body{
-    background: linear-gradient(to bottom, rgb(176,176,176), rgb(255,255,255));
+    background: white;
 }
 #edt-main{
   text-anchor:middle;
@@ -78,7 +78,7 @@ body{
     order: 2;
 }
 
-footer { 
+footer {
 /*
     height:120px;
     margin:0px;
@@ -134,7 +134,7 @@ div.tooltip {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background : linear-gradient(45deg, #f38a60 0%, #f3852b 100%);
 }
 #menu-edt li {
   float: left;
@@ -155,7 +155,7 @@ div.tooltip {
 }
 
 
-html, 
+html,
 body {
     min-height: 100%;
 }
@@ -163,15 +163,15 @@ body {
 /* FlOp Logo */
 
 #image {
-	display: flex; 
-	flex-direction: row; 
+	display: flex;
+	flex-direction: row;
 	flex-wrap: nowrap;
 	margin-left: 5ch;
 	margin-right: 1200px;
 }
 
 #live-logo {
-	width: 125px; 
+	width: 125px;
 	height: 125px;
 	margin-right: 3px;
 }
@@ -179,15 +179,15 @@ body {
 #full_logo {
 	padding-top: 0px;
 	font-family: 'flog';
-	display: flex; 
+	display: flex;
 	flex-direction: row;
 	color:black
 }
 
 #texteSous {
 	font-family: inherit;
-	display: flex; 
-	flex-direction: row; 
+	display: flex;
+	flex-direction: row;
 	align-items: baseline;
 }
 
@@ -198,7 +198,7 @@ body {
 }
 
 #head_logo {
-	
+
 	font-size: 16px;
 	font-family: 'Verdana';
 	font-weight: bold;

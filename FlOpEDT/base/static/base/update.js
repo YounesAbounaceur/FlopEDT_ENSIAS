@@ -1,21 +1,21 @@
 // This file is part of the FlOpEDT/FlOpScheduler project.
 // Copyright (c) 2017
 // Authors: Iulian Ober, Paul Renaud-Goud, Pablo Seban, et al.
-// 
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // Affero General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Affero General Public
 // License along with this program. If not, see
 // <http://www.gnu.org/licenses/>.
-// 
+//
 // You can be released from the requirements of the license by purchasing
 // a commercial license. Buying such a license is mandatory as soon as
 // you develop activities involving the FlOpEDT/FlOpScheduler software
@@ -23,19 +23,19 @@
 
 
            /*     \
-          ----------           
-        --------------         
-      ------------------       
-    ----------------------     
-  --------------------------   
------------------------------- 
+          ----------
+        --------------
+      ------------------
+    ----------------------
+  --------------------------
+------------------------------
 ----------  UPDATE -----------
------------------------------- 
-  --------------------------   
-    ----------------------     
-      ------------------       
-        --------------         
-          ----------           
+------------------------------
+  --------------------------
+    ----------------------
+      ------------------
+        --------------
+          ----------
                  */
 
 
@@ -57,7 +57,7 @@ function go_pref(quick) {
 
 
 	// preferences: background color, and smiley
-	
+
         dat = mg.selectAll(".dispo")
             .data(user.dispos)
             .attr("cursor", ckbox["dis-mod"].cked ? "pointer" : "default");
@@ -205,7 +205,7 @@ function go_pref(quick) {
 // mid: container with new smileys
 // t:   transition
 function go_smiley(top, mid, t) {
-    
+
     var datsmi = mid
         .append("g")
         .attr("class", "smiley")
@@ -339,11 +339,11 @@ function go_cm_advanced_pref(quick) {
     } else {
         t = d3.transition();
     }
-    
+
     var dis_men_dat = cmpg
         .selectAll(".dispo-menu")
         .data(data_dispo_adv_cur);
-    
+
     var dis_men = dis_men_dat
         .enter()
         .append("g")
@@ -355,7 +355,7 @@ function go_cm_advanced_pref(quick) {
 	    data_dispo_adv_cur = [] ;
 	    go_pref(true);
         });
-    
+
     dis_men
         .append("rect")
         .attr("class", "dis-men-bg")
@@ -370,9 +370,9 @@ function go_cm_advanced_pref(quick) {
             })
         .attr("stroke", "darkslategrey")
         .attr("stroke-width", 2);
-    
+
     go_smiley(dis_men_dat, dis_men, t);
-    
+
 
     dis_men_dat.exit().remove();
 }
@@ -629,7 +629,7 @@ function go_grid(quick) {
         .data(data_grid_scale_day)
         .transition(t)
         .text(gsckd_txt)
-        .attr("fill", "darkslateblue")
+        .attr("fill", "orange")
         .attr("font-size", 22)
         .attr("x", gsckd_x)
         .attr("y", gsckd_y);
@@ -692,7 +692,7 @@ function go_bknews(quick) {
         .attr("y1", bknews_bot_y())
         .attr("x2", grid_width())
         .attr("y2", bknews_bot_y());
-    
+
     var flash = fig.select(".txt-info");
 
     var fl_all = flash
@@ -720,8 +720,8 @@ function go_bknews(quick) {
 	.attr("y", bknews_row_y)
 	.attr("width", bknews_row_width)
 	.attr("height", bknews_row_height);
-    
-    
+
+
 
     ffl
 	.append("text")
@@ -735,7 +735,7 @@ function go_bknews(quick) {
 	.attr("y", bknews_row_txt_y);
 
     fl_all.exit().remove();
-    
+
 }
 
 
@@ -988,7 +988,7 @@ function go_courses(quick) {
 	    go_cm_room_tutor_change();
 	}})
         .call(dragListener);
-    
+
     incg
         .append("rect")
         .attr("class", "crect")
@@ -1018,13 +1018,13 @@ function go_courses(quick) {
         d3.selectAll("rect.crect").style("fill", cours_fill);
     }
 
-    // Tutor's fullname 
+    // Tutor's fullname
 
     // var divtip = d3.select("body").append("div")
     // .attr("class", "tooltip")
     // .style("opacity", 0);
 
-    // 
+    //
     // d3.selectAll("g.cours")
     // .on("mouseover", function(d) {
     //     divtip.transition()
