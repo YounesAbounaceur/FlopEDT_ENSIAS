@@ -72,6 +72,14 @@ def extract_database_file(bookname=bookname, department_name=None, department_ab
     coursesPreferences_add(department)
     courses_add(department)
     userPreferences_add()
+    add_root()
+
+def add_root():
+    t = Tutor(username='root')
+    t.set_password('root')
+    t.is_staff = True
+    t.is_superuser = True
+    t.save()
 
 
 def tutors_extract(department, book):
@@ -482,7 +490,7 @@ def modules_extract(department, book):
 
                 module = Module(nom=nameMod, abbrev=idMod, ppn=codeMod, train_prog=tpModule, head=profesMod, period=periodMod)
                 module.save()
-                moduleD  = ModuleDisplay(module = module)
+                moduleD  = ModuleDisplay(module = module, color_bg ="#f38a60")
                 moduleD.save()
             except IntegrityError as ie:
                 print("A constraint has not been respected creating the Module %s : \n" % idMod, ie)
@@ -659,7 +667,7 @@ def courses_add(department):
                     for m in Module.objects.filter(head=p):
                         start = m.period.starting_week
                         end = m.period.ending_week
-                        min_v = 0
+                        min_v = 1
                         max_v = 53
                         if  ct.name == "CE":
                             rt = RoomType.objects.filter(name = 'CE')[0]
