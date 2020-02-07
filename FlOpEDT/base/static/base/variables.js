@@ -214,7 +214,7 @@ var data_grid_scale_gp = [];
 // keys to the left representing the name of the row
 //(one element per row and per hour)
 var data_grid_scale_row = [];
-var data_grid_scale_hour = ["8h30-10h20", "10h40-12h30", "14h05-15h50", "16h10-18h"];
+var data_grid_scale_hour = ["8h30-10h20", "10h40-12h30", "14h00-15h50", "16h10-18h"];
 //["8h-9h25", "9h30-10h55", "11h05-12h30", "14h15-15h40", "15h45-17h10", "17h15-18h40"];
 // Names of the days
 var data_grid_scale_day_init = ["Lun.", "Mar.", "Mer.", "Jeu.", "Ven."];
