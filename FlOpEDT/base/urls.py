@@ -39,6 +39,7 @@ urlpatterns = [
 
     # directly reachable by users
     # ----------------------------
+    url(r'^applique$', views.applique, name="applique"),
     url(r'^semaine-type$', views.stype, name="stype"),
     url(r'^aide$', views.aide, name="aide"),
     url(r'^decale$', views.decale, name="decale"),    

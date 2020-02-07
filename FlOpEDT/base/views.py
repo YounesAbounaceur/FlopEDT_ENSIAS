@@ -39,7 +39,7 @@ from .forms import ContactForm
 
 from .models import Course, UserPreference, ScheduledCourse, EdtVersion, \
     CourseModification, Slot, Day, Time, RoomGroup, PlanningModification, \
-    Regen, BreakingNews, RoomPreference, Department
+    Regen, BreakingNews, RoomPreference, Department, Period
 
 from people.models import Tutor
 # Prof,
@@ -242,10 +242,131 @@ def stype(req, **kwargs):
                        'annee_courante': annee_courante
                       })
 
+@login_required
+def applique(req, **kwargs):
+    err = ''
+    if req.method == 'GET':
+        return TemplateResponse(req,
+                      'base/applique.html',
+                      {'date_deb': current_week(),
+                       'date_fin': current_week(),
+                       'name_usr': req.user.username,
+                       'err': err,
+                       'annee_courante': annee_courante,
+                       'message': ''
+                      })
+    elif req.method == 'POST':
+        if 'apply' in list(req.POST.keys()):
+            p= getShortPeriod(req.POST['se_deb'])
+            if  p :
+                message = apply(req.POST['se_deb'],annee_courante,p)
+            else:
+                message = 'cette semaine ne correspand a aucune periode'
+        else:
+            message = ''
+        return TemplateResponse(req,
+                      'base/applique.html',
+                      {'date_deb': current_week(),
+                       'date_fin': current_week(),
+                       'name_usr': req.user.username,
+                       'err': err,
+                       'annee_courante': annee_courante,
+                       'message': message
+                      })
 
 def aide(req, **kwargs):
     return TemplateResponse(req, 'base/aide.html')
 
+def getShortPeriod(s):
+    s = int(s)
+    period = Period.objects.all()[0]
+    nombreWeeks = 53
+    for p in Period.objects.all():
+        start = p.starting_week
+        end = p.ending_week
+        min_v = 1
+        max_v = 53
+        if start <= end:
+            if s>=start and s<=end:
+                nb = end - start +1
+                cont = True
+            else:
+               cont = False
+        else :
+            cont = False
+            nb = 0
+            if s>=start : 
+                nb = max_v+1 - start
+                cont = True
+            if s<=end or cont == True:
+                nb = nb + end - min_v
+                cont = True
+        if not cont :
+                continue
+        if nb < nombreWeeks:
+            period = p
+            nombreWeeks = cont
+    return period;
+
+def apply(s, an, p):
+    an = int(an)
+    s = int(s)
+    count = 0
+    list = []
+    if s <30:
+        annee = an +1
+    for sc in ScheduledCourse.objects.all():
+        if s == sc.cours.semaine and annee == sc.cours.an:
+            list.append(sc)
+            count = count + 1
+    
+    if count == 0:
+        return 'Veuillez tout d\'abord génerer l\'emploi de la semaine '+ str(s)
+    
+    if p.starting_week < p.ending_week:
+        for sc in ScheduledCourse.objects.all():
+            if sc.cours.semaine <= p.ending_week and sc.cours.semaine >s and annee == sc.cours.an:
+                sc.delete()
+
+        if  p.starting_week < 30:
+            an = an +1
+
+        for semaine in range(s+1, p.ending_week+1):
+            for sc in list:
+                add_Course_SchudeledCourse(sc, semaine, an)
+
+    else :
+        if s >=  p.starting_week:
+            for sc in ScheduledCourse.objects.all():
+                if sc.cours.semaine <= 53 and sc.cours.semaine >s and an == sc.cours.an:
+                    sc.delete()
+
+            for semaine in range(s+1, 53):
+                for sc in list:
+                    add_Course_SchudeledCourse(sc, semaine, an)
+
+            s = 0
+
+        for sc in ScheduledCourse.objects.all():
+                if sc.cours.semaine <= s and sc.cours.semaine >s and an + 1 == sc.cours.an:
+                    sc.delete()
+        
+        for semaine in range(s+1, p.ending_week):
+            for sc in list:
+                add_Course_SchudeledCourse(sc, semaine, an + 1)
+    return 'Emploi appliqué avec succés'
+    
+
+def add_Course_SchudeledCourse(sc, semaine, an):
+    c = Course(type = sc.cours.type,
+            room_type = sc.cours.room_type,
+            tutor = sc.cours.tutor,
+            groupe = sc.cours.groupe,
+            module = sc.cours.module,
+            semaine = semaine,
+            an = an)
+    c.save()
+    ScheduledCourse.objects.create(cours = c, creneau = sc.creneau, room = sc.room)
 
 @login_required
 def decale(req, **kwargs):

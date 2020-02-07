@@ -66,12 +66,13 @@
        <ul>
 				{% if department %}
 				<li><a href="{% url "base:edt" department %}">Consulter</a></li>
-				<li><a href="{% url "base:decale" department %}">Décaler/Annuler</a></li>
 				<li><a href="{% url "base:stype" department %}">Semaine type</a></li>
 				<li><a href="{% url "ics:index" department %}">iCal</a></li>
 				<li><a href="{% url "base:aide" department %}">Aide</a></li>
 				<li><a href="{% url "base:contact" department %}">Contact</a></li>
 				{% if user.is_authenticated and user.is_superuser %}
+				<li><a href="{% url "base:decale" department %}">Décaler/Annuler</a></li>
+				<li><a href="{% url "base:applique" department %}">Appliquer edt</a></li>
 					<li><a href="{% url "solve_board:main_board" department %}">Générer</a></li>
 					<li><a href="{% url "base:statistics" department %}">Statistiques</a></li>
 					<li><a href="{% url "admin:index" %}">Admin</a></li>

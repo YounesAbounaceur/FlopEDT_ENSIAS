@@ -1,0 +1,50 @@
+
+{% extends "base.html" %}
+
+{% csrf_token %}
+
+
+
+{% block title %} EDT {% endblock %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static "base/better.css" %}"/>
+  <script src="{% static "base/d3.v4.min.js" %}"></script>
+  <!-- script src="https://d3js.org/d3.v4.min.js"></script -->
+  <script>
+    var url_fetch_stype = "{% url "base:fetch_stype" department %}"; 
+    var url_stype = "{% url "base:stype" department %}"; 
+    var url_dispos_changes = "{% url "base:dispos_changes" department %}";
+    var logged_usr = {nom:"{{ name_usr }}", rights: -1};
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    var url_login = "{% url "people:login" %}";
+    var annee_courante = "{{ annee_courante }}" ;
+    console.log("{{ message }}")
+  </script>
+  </script>
+<body>
+
+	<form style="white-space: nowrap;" method="post" action="applique">
+	  <fieldset>
+	    <legend>Appliquer semaine</legend><br/>
+	    Appliquer l'emploi de la semaine : <input type="number" name="se_deb" style="width: 40px" value="{{ date_deb.semaine }}" min="1" max="53">
+	    <br><br>
+      jusqu'a la fin de la periode
+      <input type="submit" name="apply" value="Appliquer">
+      <p>{{ message }}</p>
+	  </fieldset></br></br>
+	</form>
+  
+
+	<span id="ack"></span>
+      </div>
+    </div>
+</body>
+  <script type='text/javascript' src="{% static 'base/week_change.js' %}"></script>
+  <script type='text/javascript' src="{% static 'base/transformation.js' %}"></script>
+  <script type='text/javascript' src="{% static 'base/creation.js' %}"></script>
+  <script type='text/javascript' src="{% static 'base/action.js' %}"></script>
+  <script type='text/javascript' src="{% static 'base/update.js' %}"></script>
+  <script type='text/javascript' src="{% static 'base/variables.js' %}?2"></script>
+
+{% endblock %}
