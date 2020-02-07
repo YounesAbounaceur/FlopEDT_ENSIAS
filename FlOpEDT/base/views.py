@@ -107,7 +107,7 @@ def index(req):
 
     departments = Department.objects.all()
 
-    if not departments:        
+    if not departments:
         # Create first department
         department = queries.create_first_department()
         return redirect(redirect_to_edt(department))
@@ -313,6 +313,7 @@ def apply(s, an, p):
     s = int(s)
     count = 0
     list = []
+    annee = an
     if s <30:
         annee = an +1
     for sc in ScheduledCourse.objects.all():
@@ -358,15 +359,15 @@ def apply(s, an, p):
     
 
 def add_Course_SchudeledCourse(sc, semaine, an):
-    c = Course(type = sc.cours.type,
+    c = Course.objects.get_or_create(type = sc.cours.type,
             room_type = sc.cours.room_type,
             tutor = sc.cours.tutor,
             groupe = sc.cours.groupe,
             module = sc.cours.module,
             semaine = semaine,
-            an = an)
-    c.save()
-    ScheduledCourse.objects.create(cours = c, creneau = sc.creneau, room = sc.room)
+            an = an)[0]
+    cp = ScheduledCourse(cours = c, creneau = sc.creneau, room = sc.room, no = sc.no , noprec= sc.noprec, copie_travail = sc.copie_travail)
+    cp.save()
 
 @login_required
 def decale(req, **kwargs):
